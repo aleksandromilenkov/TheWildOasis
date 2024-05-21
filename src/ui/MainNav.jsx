@@ -1,5 +1,11 @@
 /* eslint-disable */
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { HiOutlineHome } from "react-icons/hi2";
+import { HiOutlineCalendarDays } from "react-icons/hi2";
+import { HiOutlineHomeModern } from "react-icons/hi2";
+import { HiOutlineUsers } from "react-icons/hi2";
+import { HiOutlineCog6Tooth } from "react-icons/hi2";
 
 const NavList = styled.ul`
   display: flex;
@@ -7,7 +13,7 @@ const NavList = styled.ul`
   gap: 0.8rem;
 `;
 
-const Link = styled.a`
+const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
     display: flex;
