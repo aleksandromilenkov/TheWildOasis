@@ -18,13 +18,12 @@ export async function deleteCabin(id) {
 
 // if there is id then we know we are in the Edit session
 export async function createEditCabin(cabin, id) {
-  console.log("Edit id:", id);
   // checking if the image is already there (no new image for edit)
   const hasImagePath = cabin.image?.startsWith?.(supabaseUrl);
 
   // creating unique name of the image and replacing the / characters because supabase might create folders based on that /
   // if the image name that user uploads contains / then the supabse will create new folder, we dont want that.
-  const imageName = `${Math.random() * 10000}-${cabin.image.name}`.replaceAll(
+  const imageName = `${Math.random() * 10000}-${cabin.image?.name}`.replaceAll(
     "/",
     ""
   );
