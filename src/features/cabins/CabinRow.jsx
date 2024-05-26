@@ -46,10 +46,14 @@ import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import CreateCabinForm from "./CreateCabinForm";
 import useDeleteCabin from "./useDeleteCabin";
+import { HiPencil, HiSquare2Stack } from "react-icons/hi2";
+import { HiTrash } from "react-icons/hi";
+import useCreateCabin from "./useCreateCabin";
 
 const CabinRow = ({ cabin }) => {
   const [showForm, setShowForm] = useState(false);
   const [isDeleting, deleteCabin] = useDeleteCabin();
+  const [isCreating, createCabin] = useCreateCabin();
   const {
     name,
     maxCapacity,
@@ -58,6 +62,11 @@ const CabinRow = ({ cabin }) => {
     image,
     id: cabinId,
   } = cabin;
+  const duplicateCabinHandler = (e) => {
+    // because we cannot create another cabin with the same ID in the DB
+    delete cabin.id;
+    createCabin({ ...cabin, name: `Copy of ${name}` });
+  };
   return (
     <>
       <TableRow>
@@ -71,10 +80,14 @@ const CabinRow = ({ cabin }) => {
           <span>&mdash;</span>
         )}
         <div className="gap-2">
-          <button onClick={() => setShowForm(true)}>Edit</button>
+          <button onClick={duplicateCabinHandler}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiPencil />
+          </button>
           <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            {" "}
-            Delete{" "}
+            <HiTrash />
           </button>
         </div>
       </TableRow>
