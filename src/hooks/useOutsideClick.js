@@ -11,7 +11,7 @@ const useOutsideClick = (close) => {
     // handling the event in the capturing phase ( not in the bubbling )
     // because in the bubbling phase ( the default one) the Add New Cabin button is outside the StyledModal
     // and it will immediately detect that event and close the modal imeddiately
-    // we are detecting in the capturing phase by specifyng thir argument boolean true
+    // we are detecting in the capturing phase by specifyng third argument boolean true
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
   }, [close]);

@@ -22,20 +22,22 @@ import CabinTable from "./CabinTable";
 
 const AddCabin = () => {
   return (
-    <Modal>
-      <Modal.Open opens="cabin-form">
-        <Button>Add new cabin</Button>
-      </Modal.Open>
-      <Modal.Window name="cabin-form">
-        <CreateCabinForm />
-      </Modal.Window>
-      <Modal.Open opens="table">
+    <div>
+      <Modal>
+        <Modal.Open opens="cabin-form">
+          <Button>Add new cabin</Button>
+        </Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
+        {/* <Modal.Open opens="table">
         <Button>Add new table</Button>
-      </Modal.Open>
+        </Modal.Open>
       <Modal.Window name="table">
-        <CabinTable />
-      </Modal.Window>
-    </Modal>
+      <CabinTable />
+      </Modal.Window> */}
+      </Modal>
+    </div>
   );
 };
 
