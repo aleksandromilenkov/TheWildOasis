@@ -58,6 +58,7 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 
 const CabinRow = ({ cabin }) => {
+  console.log(cabin);
   const [showForm, setShowForm] = useState(false);
   const [isDeleting, deleteCabin] = useDeleteCabin();
   const [isCreating, createCabin] = useCreateCabin();
