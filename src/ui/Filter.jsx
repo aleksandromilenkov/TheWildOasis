@@ -46,6 +46,7 @@ const Filter = ({ filteredField, options }) => {
       {options.map((option, idx) => (
         <FilterButton
           active={searchParams.get(filteredField) === option.value}
+          disabled={searchParams.get(filteredField) === option.value}
           onClick={() => handleClick(option.value)}
         >
           {option.label}

@@ -69,14 +69,15 @@ const CabinTable = () => {
   const [isLoading, cabins, error] = useCabins();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // 1) Filtered:
   const filtered = searchParams.get("discount");
   let filteredCabins = cabins;
   switch (filtered) {
     case "no-discount":
-      filteredCabins = cabins.filter((cabin) => !cabin.discount);
+      filteredCabins = cabins?.filter((cabin) => !cabin.discount);
       break;
     case "with-discount":
-      filteredCabins = cabins.filter((cabin) => !!cabin.discount);
+      filteredCabins = cabins?.filter((cabin) => !!cabin.discount);
       break;
     case "all":
       filteredCabins = cabins;
@@ -84,6 +85,15 @@ const CabinTable = () => {
     default:
       filteredCabins = cabins;
   }
+
+  // 2) Sorted:
+  const sortBy = searchParams.get("sortBy") || "name-asc";
+  const [field, direction] = sortBy.split("-");
+  console.log("FIELD:", field);
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedCabins = filteredCabins?.sort(
+    (a, b) => a[field] - b[field] * modifier
+  );
   if (isLoading) return <Spinner />;
   return (
     <Menus>
@@ -98,7 +108,7 @@ const CabinTable = () => {
         </Table.Header>
         {/* Here we are using the render props pattern where we pass a method for rendering: */}
         <Table.Body
-          data={filteredCabins}
+          data={sortedCabins}
           render={(cabin, idx) => <CabinRow cabin={cabin} key={idx} />}
         />
       </Table>
