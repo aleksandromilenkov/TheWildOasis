@@ -7,9 +7,8 @@ import Empty from "../../ui/Empty";
 
 function BookingTable() {
   const [isLoading, bookings, error] = useBookings();
-  console.log(bookings);
   if (isLoading) return <Spinner />;
-  if (!bookings.length) return <Empty resource={"Bookings"} />;
+  if (!bookings?.length) return <Empty resource={"Bookings"} />;
   return (
     <Menus>
       <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">

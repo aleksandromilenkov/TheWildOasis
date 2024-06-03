@@ -35,18 +35,18 @@ const FilterButton = styled.button`
   }
 `;
 
-const Filter = ({ filteredField, options }) => {
+const Filter = ({ filterField, options }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const handleClick = (value) => {
-    searchParams.set(filteredField, value);
+    searchParams.set(filterField, value);
     setSearchParams(searchParams);
   };
   return (
     <StyledFilter>
       {options.map((option, idx) => (
         <FilterButton
-          active={searchParams.get(filteredField) === option.value}
-          disabled={searchParams.get(filteredField) === option.value}
+          active={searchParams.get(filterField) === option.value}
+          disabled={searchParams.get(filterField) === option.value}
           onClick={() => handleClick(option.value)}
         >
           {option.label}
