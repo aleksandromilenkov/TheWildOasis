@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export const useBookings = () => {
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Filter
@@ -16,13 +18,34 @@ export const useBookings = () => {
   const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
+
+  // Pagination
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
   const {
     isLoading,
-    data: bookings,
+    data: { data: bookings, count } = {},
     error,
   } = useQuery({
-    queryKey: ["bookings", filter, sortBy], // this is dependency array, so when the filter or sortBy changes, then react Query will re-fetch the bookings
-    queryFn: () => getBookings(filter, sortBy),
+    queryKey: ["bookings", filter, sortBy, page], // this is dependency array, so when the filter or sortBy changes, then react Query will re-fetch the bookings
+    queryFn: () => getBookings(filter, sortBy, page),
   });
-  return [isLoading, bookings, error];
+
+  // Pre-Fetching
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+  if (page < pageCount)
+    // This is fetching the next page to be ready when we click on the Next-> button.
+    queryClient.prefetchQuery({
+      queryKey: ["bookings", filter, sortBy, page + 1], // this is dependency array, so when the filter or sortBy changes, then react Query will re-fetch the bookings
+      queryFn: () => getBookings(filter, sortBy, page + 1),
+    });
+
+  if (page > 1)
+    // This is fetching the prev page to be ready when we click on the <-Prev button.
+    queryClient.prefetchQuery({
+      queryKey: ["bookings", filter, sortBy, page - 1], // this is dependency array, so when the filter or sortBy changes, then react Query will re-fetch the bookings
+      queryFn: () => getBookings(filter, sortBy, page - 1),
+    });
+
+  return [isLoading, bookings, count, error];
 };
