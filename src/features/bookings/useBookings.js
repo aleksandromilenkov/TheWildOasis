@@ -6,7 +6,6 @@ import { PAGE_SIZE } from "../../utils/constants";
 export const useBookings = () => {
   const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
-
   // Filter
   const filterValue = searchParams.get("status");
   const filter =
