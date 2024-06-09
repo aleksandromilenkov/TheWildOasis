@@ -3,7 +3,6 @@ import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings(filter, sortBy, page) {
-  console.log("FILTER:", filter);
   let query = supabase
     .from("bookings")
     .select("*, cabins(name), guests(fullName, email)", { count: "exact" });
@@ -11,7 +10,6 @@ export async function getBookings(filter, sortBy, page) {
   // FILTER
   if (filter) query = query[filter.method](filter.field, filter.value);
 
-  console.log(sortBy.direction);
   if (sortBy)
     query = query.order(sortBy.field, {
       ascending: sortBy.direction === "asc",
@@ -23,24 +21,20 @@ export async function getBookings(filter, sortBy, page) {
     const to = from + PAGE_SIZE - 1;
     query = query.range(from, to);
   }
-  console.log(query);
   let { data, error, count } = await query;
   if (error) {
     console.error(error);
     throw new Error("Bookings are not found");
   }
-  console.log("APIBOOKING", data);
   return { data, count };
 }
 
 export async function getBooking(id) {
-  console.log(id);
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
     .eq("id", id)
     .single();
-  console.log(data);
   if (error) {
     console.error(error);
     throw new Error("Booking not found");
@@ -104,6 +98,8 @@ export async function getStaysTodayActivity() {
 }
 
 export async function updateBooking(id, obj) {
+  console.log(id);
+  console.log(obj);
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -115,6 +111,7 @@ export async function updateBooking(id, obj) {
     console.error(error);
     throw new Error("Booking could not be updated");
   }
+  console.log(data);
   return data;
 }
 

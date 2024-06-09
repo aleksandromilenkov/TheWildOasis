@@ -19,7 +19,7 @@ const StyledToggle = styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background-color: var(--color-grey-100);
+    background-color: var(--color-grey-900);
   }
 
   & svg {
@@ -32,10 +32,10 @@ const StyledToggle = styled.button`
 const StyledList = styled.ul`
   position: fixed;
 
-  background-color: var(--color-grey-0);
+  background-color: black;
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
-
+  color: white;
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
 `;
@@ -54,7 +54,7 @@ const StyledButton = styled.button`
   gap: 1.6rem;
 
   &:hover {
-    background-color: var(--color-grey-50);
+    background-color: var(--color-grey-900);
   }
 
   & svg {
@@ -88,7 +88,7 @@ const Toggle = ({ id }) => {
     console.log(rect);
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
-      y: rect.y - rect.height * 4 - 8,
+      y: rect.y + rect.height + 8,
     });
     console.log("ID:", id);
     console.log("OPENID", openId);
@@ -114,6 +114,7 @@ const List = ({ id, children }) => {
 };
 const Button = ({ children, icon, onClick }) => {
   const { openId, close } = useContext(MenusContext);
+  console.log("OPEN ID", openId);
   const handleClick = () => {
     onClick?.();
     close();
