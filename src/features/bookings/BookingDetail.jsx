@@ -24,6 +24,7 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const { booking, isLoading } = useBooking();
+  console.log(booking);
   const moveBack = useMoveBack();
   const navigate = useNavigate();
   if (isLoading) {

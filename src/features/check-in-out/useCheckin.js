@@ -8,8 +8,13 @@ const useCheckin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isLoading: isCheckingIn, mutate: checkin } = useMutation({
-    mutationFn: (bookingId) => {
-      return updateBooking(bookingId, { isPaid: true, status: "checked-in" });
+    mutationFn: ({ bookingId, breakfast }) => {
+      console.log(breakfast);
+      return updateBooking(bookingId, {
+        isPaid: true,
+        status: "checked-in",
+        ...breakfast,
+      });
     },
     // onSuccess accepts parametar data that is returned from the mutation function
     onSuccess: (data) => {
@@ -22,7 +27,7 @@ const useCheckin = () => {
       navigate("/");
     },
     onError: (err) => {
-      navigate("/");
+      toast.error("Could not check in the booking");
     },
   });
   return [isCheckingIn, checkin];
