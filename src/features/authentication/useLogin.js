@@ -1,26 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../services/apiAuth";
+import { login as loginApi } from "../../services/apiAuth";
 import toast from "react-hot-toast";
 
-const useLogin = () => {
+function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { isLoading: isLogingIn, mutate: loginUser } = useMutation({
-    mutationFn: ({ email, password }) => login({ email, password }),
-    onSuccess: (data) => {
-      console.log(data);
-      toast.success(`Successfully loged in.`);
-      navigate("/dashboard");
-      // this will invalidate all the queries that are currently active on the page:
-      queryClient.invalidateQueries({
-        active: true,
-      });
+
+  const { mutate: login, isLoading } = useMutation({
+    mutationFn: ({ email, password }) => loginApi({ email, password }),
+    onSuccess: (user) => {
+      queryClient.setQueryData(["user"], user.user);
+      navigate("/dashboard", { replace: true });
     },
-    onError: () => {
-      toast.error("Incorrect email or password.");
+    onError: (err) => {
+      console.log("ERROR", err);
+      toast.error("Provided email or password are incorrect");
     },
   });
-  return [isLogingIn, loginUser];
-};
+
+  return { login, isLoading };
+}
 export default useLogin;

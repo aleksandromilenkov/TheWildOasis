@@ -5,17 +5,17 @@ import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertial";
 import SpinnerMini from "../../ui/SpinnerMini";
 import useLogin from "./useLogin";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogingIn, loginUser] = useLogin();
+  const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    console.log(password);
-    loginUser(
+    login(
       { email, password },
       {
         onSettled: () => {
@@ -36,7 +36,7 @@ function LoginForm() {
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={isLogingIn}
+          disabled={isLoading}
         />
       </FormRowVertical>
       <FormRowVertical label="Password">
@@ -45,13 +45,13 @@ function LoginForm() {
           id="password"
           autoComplete="current-password"
           value={password}
-          disabled={isLogingIn}
+          disabled={isLoading}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large" disabled={isLogingIn}>
-          {!isLogingIn ? "Login" : <SpinnerMini />}
+        <Button size="large" disabled={isLoading}>
+          {!isLoading ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
     </Form>
