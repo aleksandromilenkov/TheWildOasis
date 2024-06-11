@@ -8,7 +8,8 @@ const useSignup = () => {
   const navigate = useNavigate();
 
   const { mutate: signup, isLoading } = useMutation({
-    mutationFn: ({ email, password }) => signupAPI({ email, password }),
+    mutationFn: ({ fullName, email, password }) =>
+      signupAPI({ fullName, email, password }),
     onSuccess: (data) => {
       console.log(data);
       toast.success(

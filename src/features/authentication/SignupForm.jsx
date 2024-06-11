@@ -13,7 +13,7 @@ function SignupForm() {
   const { errors } = formState;
   console.log(errors);
   const onSubmit = ({ fullName, email, password, passwordConfirm }) => {
-    // console.log(data);
+    console.log(fullName);
     console.log(errors);
     signup(
       { fullName, email, password },
