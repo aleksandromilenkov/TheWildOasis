@@ -12,7 +12,6 @@ const useLogout = () => {
     onSuccess: () => {
       queryClient.removeQueries();
       navigate("/login", { replace: true });
-      // this will invalidate all the queries that are currently active on the page:
     },
   });
   return [isLoading, logoutUser];
