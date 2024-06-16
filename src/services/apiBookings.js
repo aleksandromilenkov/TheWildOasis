@@ -78,6 +78,9 @@ export async function getStaysAfterDate(date) {
 }
 
 // Activity means that there is a check in or a check out today
+// or means to select the bookings to match the first condition or the second condition that is specified in the or string
+// the or string is separeted with coma to distinguish the 2 scenarios.
+// in the and we say that we need for example all the bookigns with the status unconfirmed and the startDate today.
 export async function getStaysTodayActivity() {
   const { data, error } = await supabase
     .from("bookings")
