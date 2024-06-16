@@ -48,6 +48,7 @@ const Filter = ({ filterField, options }) => {
     <StyledFilter>
       {options.map((option, idx) => (
         <FilterButton
+          key={idx}
           active={searchParams.get(filterField) === option.value}
           disabled={searchParams.get(filterField) === option.value}
           onClick={() => handleClick(option.value)}
