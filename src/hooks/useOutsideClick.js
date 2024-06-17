@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 
-const useOutsideClick = (close) => {
+const useOutsideClick = (close, listenCapturingPhase = true) => {
   const ref = useRef();
   const handleClick = useCallback(
     (e) => {
@@ -15,9 +15,10 @@ const useOutsideClick = (close) => {
     // because in the bubbling phase ( the default one) the Add New Cabin button is outside the StyledModal
     // and it will immediately detect that event and close the modal imeddiately
     // we are detecting in the capturing phase by specifyng third argument boolean true
-    document.addEventListener("click", handleClick, true);
-    return () => document.removeEventListener("click", handleClick, true);
-  }, [close, handleClick]);
+    document.addEventListener("click", handleClick, listenCapturingPhase);
+    return () =>
+      document.removeEventListener("click", handleClick, listenCapturingPhase);
+  }, [close, handleClick, listenCapturingPhase]);
 
   return ref;
 };
