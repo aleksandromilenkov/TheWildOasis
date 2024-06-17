@@ -1,5 +1,7 @@
 #WildOasis
 
+## Description of the App:
+
 This is React.js application created with Vite and with Supabase API for the backend.  
 The app is developed for the administration of the Wild-Oasis Complex Hotel.  
 The Wild-Oasis has 8 cabins with different capacity.  
@@ -13,7 +15,7 @@ Also I've implemented a Dark Mode for those who like it.
 Also the Admins can Edit their profile and can upload Avatar picture, change their Name and also update their password and logout.  
 _NOTE_ :
 When you are registering you must enter valid mail because after the registration you need to open your mail and confirm the registration. The link will be sent to your mail.  
- If you don't want to enter your e-mail in order to register, you can always use the Temp-mail from this website: [towav94359@dalebig.com](https://temp-mail.org/)
+ If you don't want to enter your e-mail in order to register, you can always use the Temp-mail from this website: [https://temp-mail.org/](https://temp-mail.org/)
 Or you can use some of the users that I created before: email: oasis@gmail.com password: test1234
 
 ## Development:
