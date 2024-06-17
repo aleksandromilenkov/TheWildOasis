@@ -11,6 +11,10 @@ Also I've implemented a Dashboard home page where the Administrators can more ea
 the total bookings, total sales, total check ins, occupancy rate of the cabins and more for the last 7, 30 and 90 days!  
 Also I've implemented a Dark Mode for those who like it.  
 Also the Admins can Edit their profile and can upload Avatar picture, change their Name and also update their password and logout.  
+_NOTE_ :
+When you are registering you must enter valid mail because after the registration you need to open your mail and confirm the registration. The link will be sent to your mail.  
+ If you don't want to enter your e-mail in order to register, you can always use the Temp-mail from this website: [towav94359@dalebig.com](https://temp-mail.org/)
+Or you can use some of the users that I created before: email: oasis@gmail.com password: test1234
 I'm using some advance react patterns for the Modals and Menu with Compound-components.  
 Styled Components for the style of the app.  
 Tanstack query known as React Query for fetching and posting data to the Supabase API.  
