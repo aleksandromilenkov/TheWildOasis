@@ -30,5 +30,7 @@ React Hook Form for easier work with Forms.
 React Toasts for displaying beautiful messages on the UI.  
 Date-fns for manipulating easier with javascript dates.
 
+## Hosting Online:
+
 The App is hosted live on Netlify, you can check it here: https://wild-oasis-aleksandro.netlify.app/  
 The App is hosted live on Vercel, you can check it here: https://the-wild-oasis-aleksandro.vercel.app/dashboard
